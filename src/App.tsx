@@ -7,6 +7,7 @@ import {Container, Navbar} from "react-bootstrap";
 import NavbarComponent from "./Components/Navbar";
 import {User} from "./Components/models/user"
 import Login from './Components/Login';
+import Register from './Components/Register';
 
 function App() {
   const [principal, setPrincipal] = useState<User>();
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         {/* <TestComponent/> */}
         <Route path ="login" element={<Login currentUser={principal} setCurrentUser={setPrincipal}/>}/>
+        <Route path='register' element={<Register/>}/>
         </Routes>
       </BrowserRouter>
 
