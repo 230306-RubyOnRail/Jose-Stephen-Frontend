@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <NavbarComponent />
+      <NavbarComponent currentUser={principal}/>
       <Routes>
         {/* <TestComponent/> */}
         <Route path ="login" element={<Login currentUser={principal} setCurrentUser={setPrincipal}/>}/>
