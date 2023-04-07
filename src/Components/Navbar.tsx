@@ -11,9 +11,13 @@ import Login from './Login';
 
 interface INavbarComponent {
     currentUser: User | undefined,
+    setCurrentUser: (nextUser: User | undefined) => void
 }
 
 export default function NavbarComponent(props:INavbarComponent) {
+    function logout() {
+        props.setCurrentUser(undefined);
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -31,13 +35,24 @@ export default function NavbarComponent(props:INavbarComponent) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {props.currentUser ? <div>{props.currentUser.user_first_name}</div>: "Reimbursements" }
           </Typography>
-          {props.currentUser ? 
-          <div> 
-          <Button color="inherit"><Link to="/login">Logout</Link></Button>
-          </div>:
-          <div><Button color="inherit"><Link to="/register">Register</Link>
-          </Button> <Button color="inherit"><Link to="/login">Login</Link></Button> </div>}
-          
+
+          {!props.currentUser ?
+            <div>
+                <Button color="secondary"><Link to="/register">Register</Link>
+                </Button> <Button color="inherit"><Link to="/login">Login</Link></Button></div>
+            :
+            props.currentUser.user_role ? 
+            <div>
+                <Button color="inherit"><Link to="/users">Users</Link></Button>
+                <Button color="inherit"><Link to="/manager/reimbursements">Reimbursements</Link></Button>
+                <Button onClick={logout} color="inherit">Logout</Button>
+            </div>
+            :
+            <div>
+                <Button color="inherit"><Link to="/reimbursements">Reimbursements</Link></Button>
+                <Button onClick={logout} color="inherit">Logout</Button>
+            </div>
+}
         </Toolbar>
       </AppBar>
     </Box>
