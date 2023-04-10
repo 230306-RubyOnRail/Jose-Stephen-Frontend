@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import { User } from "./models/user";
+import { Navigate } from "react-router-dom";
 
 interface ILoginProps{
     currentUser: User | undefined,
@@ -18,10 +19,8 @@ export default function Login(props: ILoginProps) {
     }
 
     let login = async (e: SyntheticEvent) => {
-        console.log(`email: ${email} and password: ${password}`);
         if(email && password){
             setErrorMessage('');
-            console.log(`email: ${email} and password: ${password}`);
 
             try{
                 let response = await fetch('http://localhost:3000/auth/login', {
@@ -33,7 +32,7 @@ export default function Login(props: ILoginProps) {
                 });
 
                 if(response.status === 201){
-                    props.setCurrentUser(await response.json());
+                    props.setCurrentUser(await response.json())
                 } else {
                     console.log('unable to reach API');
                 }
@@ -49,12 +48,11 @@ export default function Login(props: ILoginProps) {
     return (
         props.currentUser ? // if
         <>
-            Hello {props.currentUser.user_first_name} token: {props.currentUser.token}
-            {console.log(props.currentUser)}
+        <Navigate to='/reimbursements'/>
         </>
         : // else
         <>
-            <p>Login to To-do app!</p>
+            <p>Login</p>
             <div>
                 <input type="text" id="login-email" placeholder="Enter your email" onChange={updateEmail}/>
                 <br /><br />

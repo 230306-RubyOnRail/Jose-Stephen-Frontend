@@ -44,12 +44,13 @@ export default function NavbarComponent(props:INavbarComponent) {
             props.currentUser.user_role ? 
             <div>
                 <Button color="inherit"><Link to="/users">Users</Link></Button>
-                <Button color="inherit"><Link to="/manager/reimbursements">Reimbursements</Link></Button>
+                <Button color="inherit"><Link to="/reimbursements">All</Link></Button>
                 <Button onClick={logout} color="inherit">Logout</Button>
             </div>
             :
             <div>
-                <Button color="inherit"><Link to="/reimbursements">Reimbursements</Link></Button>
+                <Button color="inherit"><Link to="/submit">Submit</Link></Button>
+                <Button color="inherit"><Link to="/reimbursements">All</Link></Button>
                 <Button onClick={logout} color="inherit">Logout</Button>
             </div>
 }
