@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { User } from './models/user'
 import { Reimbursement } from './models/reimbursements'
 import axios from 'axios'
@@ -19,9 +19,6 @@ interface IReimbursementsProps {
 }
 
 export default function Reimbursements(props: IReimbursementsProps) {
-  // const[] 
-  // /users/props.currentUser.id/reimbursements
-  // /reimbursements
 
   const API_URL = 'http://localhost:3000'
 
@@ -45,11 +42,18 @@ export default function Reimbursements(props: IReimbursementsProps) {
   const approve = async (id: number) => {
     console.log("called")
     try {
-        await axios.patch(`${API_URL}/reimbursements/${id}`, {reimbursement_status: 'approved'}, {
+      fetch(`${API_URL}/reimbursements/${id}`, {
+        method: 'PATCH',
         headers: {
-          Authorization: `Bearer ${props.currentUser?.token}`
-        }
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          reimbursement: {
+            status: 'Accept',
+          }
+        })
       })
+      fetchReimbursements()
     } catch (err) {
       console.log(err)
     }
@@ -57,14 +61,21 @@ export default function Reimbursements(props: IReimbursementsProps) {
 
   const deny = async (id: number) => {
     try {
-      await axios.patch(`${API_URL}/reimbursements/${id}`, {status: 'deny'}, {
-      headers: {
-        Authorization: `Bearer ${props.currentUser?.token}`
-      }
-    })
-  } catch (err) {
-    console.log(err)
-  }
+      fetch(`${API_URL}/reimbursements/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          reimbursement: {
+            status: 'Deny',
+          }
+        })
+      })
+      fetchReimbursements()
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {

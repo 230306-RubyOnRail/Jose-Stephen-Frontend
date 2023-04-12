@@ -1,26 +1,55 @@
-import React, { SyntheticEvent, useState } from 'react'
+import {useState } from 'react'
+import { User } from './models/user';
+import { Checkbox } from '@mui/material';
 
-export default function Register() {
+interface IRegisterProps {
+  currentUser: User | undefined
+}
 
+export default function Register(props: IRegisterProps) {
+
+  const API_URL = 'http://localhost:3000'
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const role = false;
+  const [role, setRole] = useState('false')
 
-  let updateEmail = (e: SyntheticEvent) => {
-    setEmail((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
-    // console.log(`email is: ${email}`);
+function changeValue() {
+  if (role === 'false')
+    setRole('true')
+  else if (role === 'true') {
+    setRole('false')
   }
+  console.log(role)
+}
 
-  let register = async (e: SyntheticEvent) => {
-    console.log(`username = ${username}, password = ${password}, first_name = ${firstName}, last_name = ${lastName}, email = ${email}, role = ${role}`);
+  const create  = async () => {
+    try {
+      fetch(`${API_URL}/users/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${props.currentUser?.token}`
+        },
+        body: JSON.stringify({
+            user_name: `${username}`,
+            email: `${email}`,
+            password: `${password}`,
+            first_name: `${firstName}`,
+            last_name: `${lastName}`,
+            role: `${role}`
+        })
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
     
   return (
     <div>
-      <h1>Register works? Register works!</h1>
+      <h1>Register Users</h1>
       <input type="text" name="register-username" id="register-username" placeholder='Username' onChange={(e) => {setUsername(e.target.value)}}/>
       <br />
       <input type="password" name="register-password" id="register-password" placeholder='Password' onChange={(e) => 
@@ -32,7 +61,8 @@ export default function Register() {
       <br />
       <input type="email" name="register-email" id="register-email" placeholder='Email address' onChange={(e) => {setEmail(e.target.value)}}/>
       <br />
-      <button type="submit" onClick={register}>Register</button>
+      <div>Manager: <Checkbox value={'false'} onChange={() => changeValue()}/></div>
+      <button type="submit" onClick={() => create()}>Register</button>
     </div>
   )
 }

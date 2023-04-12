@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { User } from './models/user';
 import { Link } from 'react-router-dom';
-import Login from './Login';
+
 
 interface INavbarComponent {
     currentUser: User | undefined,
@@ -38,12 +38,11 @@ export default function NavbarComponent(props:INavbarComponent) {
 
           {!props.currentUser ?
             <div>
-                <Button color="secondary"><Link to="/register">Register</Link>
-                </Button> <Button color="inherit"><Link to="/login">Login</Link></Button></div>
+               <Button color="inherit"><Link to="/login">Login</Link></Button></div>
             :
             props.currentUser.user_role ? 
             <div>
-                <Button color="inherit"><Link to="/users">Users</Link></Button>
+                <Button color="inherit"><Link to="/register">Register</Link></Button>
                 <Button color="inherit"><Link to="/reimbursements">All</Link></Button>
                 <Button onClick={logout} color="inherit">Logout</Button>
             </div>

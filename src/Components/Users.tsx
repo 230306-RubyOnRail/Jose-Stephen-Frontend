@@ -1,4 +1,4 @@
-
+import React, { useEffect } from "react"
 import { Navigate } from "react-router-dom"
 import { User } from "./models/user"
 import axios from "axios"
@@ -9,18 +9,20 @@ interface IPropsUsers {
 
 
 export default function Users(props:IPropsUsers) {
-    // const headers = {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${props.currentUser?.token}`
-    //   }
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${props.currentUser?.token}`
+      }
 
-    // componentDidMount() {
-    //     axios.get('localhost:3000/users' {
-    //         headers: headers
-    //       })
-    //       .then((response) => {
-            
-    // })}
+      const API_URL = 'http://localhost:3000'
+
+      useEffect(() => {
+        axios.get(`${API_URL}/users`, {
+            headers: headers
+          })
+          .then((response) => {
+            console.log(response.data)
+    })})
       
       
         
@@ -35,8 +37,5 @@ export default function Users(props:IPropsUsers) {
         <Navigate to="/login" />
     </>
   )
-}
-function componentDidMount() {
-    throw new Error('Function not implemented.');
 }
 
