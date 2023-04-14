@@ -1,3 +1,12 @@
 .p-4 {
     padding: 1rem;
 }
+
+.nav-title, nav-title:hover, nav-title:focus, nav-title:active {
+    text-decoration: none;
+    color: white;
+}
+
+.hover-large:hover {
+    transform: scale(1.1);
+}

@@ -1,7 +1,8 @@
 import { SyntheticEvent, useState } from 'react'
 import { User } from './models/user'
 import { Button } from 'react-bootstrap'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import '../styles/global.css'
 
 interface ISubmitProps {
   currentUser: User | undefined
@@ -13,6 +14,7 @@ export default function Submit(props: ISubmitProps) {
 
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
+  const navigate = useNavigate()
 
   let updateAmount = (e: SyntheticEvent) => {
     setAmount((e.target as HTMLInputElement).value);
@@ -40,6 +42,7 @@ export default function Submit(props: ISubmitProps) {
           }
         })
       })
+      .then(data => {navigate("/reimbursements")})
     } catch (err) {
       console.log(err)
     }
@@ -48,11 +51,14 @@ export default function Submit(props: ISubmitProps) {
   return (
     props.currentUser?.user_id
     ?
-    props.currentUser?.user_role === true
+    props.currentUser?.user_role === false
     ?
     <div>
+      <div className='header'>Submit</div>
+      <div className='container'>
       <div>Amount: <input type="text" placeholder='' onChange={updateAmount}/></div>
       <div>Description: <input type="text" onChange={updateDescription}/></div>
+      </div>
       <Button onClick={() => create()}>Submit</Button>
       </div>
       :

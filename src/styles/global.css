@@ -1,0 +1,15 @@
+.header {
+    font-size: xx-large;
+    padding: 8px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }

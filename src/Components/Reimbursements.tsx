@@ -10,7 +10,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import DangerousIcon from '@mui/icons-material/Dangerous';
+import  '../styles/reimbursements.css'
+import  '../styles/global.css'
 
 interface IReimbursementsProps {
   currentUser: User | undefined,
@@ -21,7 +27,9 @@ interface IReimbursementsProps {
 export default function Reimbursements(props: IReimbursementsProps) {
 
   const API_URL = 'http://localhost:3000'
+  const navigate = useNavigate()
 
+  // Gets reimbursements from the database
   const fetchReimbursements = async () => {
     try {
       let response = await axios.get(`${API_URL}/reimbursements`, {
@@ -35,51 +43,85 @@ export default function Reimbursements(props: IReimbursementsProps) {
     }
   }
 
+
+  //Turns the number into a dollar amount
   function toMoney(x: number) {
     return `$${x}` 
   }
 
+
+  //Changes the status of the Reimbursement to approved
   const approve = async (id: number) => {
     console.log("called")
     try {
-      fetch(`${API_URL}/reimbursements/${id}`, {
+      const resp = await fetch(`${API_URL}/reimbursements/${id}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${props.currentUser?.token}`
         },
         body: JSON.stringify({
           reimbursement: {
-            status: 'Accept',
+            status: 'Approved',
           }
         })
       })
-      fetchReimbursements()
+      if(resp.status === 204) {
+        fetchReimbursements();
+      }
     } catch (err) {
       console.log(err)
     }
   }
 
+  //Changes the status of the Reimbursement to denied
   const deny = async (id: number) => {
     try {
-      fetch(`${API_URL}/reimbursements/${id}`, {
+      const resp = await fetch(`${API_URL}/reimbursements/${id}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${props.currentUser?.token}`
         },
         body: JSON.stringify({
           reimbursement: {
-            status: 'Deny',
+            status: 'Denied',
           }
         })
       })
-      fetchReimbursements()
+      if(resp.status === 204) {
+        fetchReimbursements();
+      }
     } catch (err) {
       console.log(err)
     }
   }
 
+
+  //deletes reimbursement
+  const remove = async (id:number) => {
+    try {
+      const resp = await fetch(`${API_URL}/reimbursements/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${props.currentUser?.token}`
+        }
+      }).then(resp => {fetchReimbursements()})
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const edit = (id: number) => {
+    navigate(`/reimbursement/${id}/edit`)
+  }
+
+
+  //Use Effect for getting reimbursements
   useEffect(() => {
     fetchReimbursements()
+    console.log(props)
   }, [])
 
 
@@ -90,6 +132,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
         ?
         props.reimbursements?.reimbursements[0] ?
           <>
+          <div className='header'>Reimbursements</div>
           <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -97,6 +140,9 @@ export default function Reimbursements(props: IReimbursementsProps) {
             <TableCell>Description</TableCell>
             <TableCell>Amount</TableCell>
             <TableCell>Status</TableCell>
+            <TableCell>Deny</TableCell>
+            <TableCell>Approve</TableCell>
+            <TableCell>Delete</TableCell>
           </TableHead>
           <TableBody>
              {props.reimbursements.reimbursements.map((item) => (
@@ -105,8 +151,9 @@ export default function Reimbursements(props: IReimbursementsProps) {
                  <TableCell>{item.description}</TableCell>
                  <TableCell>{toMoney(item.amount)}</TableCell>
                  <TableCell>{item.status}</TableCell>
-                 <TableCell><Button onClick={() => deny(item.id)}>Reject</Button></TableCell>
-                 <TableCell><Button onClick={() => approve(item.id)}>Accept</Button></TableCell>
+                 <TableCell><DangerousIcon className='icon-hover' style={{ color: 'red' }} onClick={() => deny(item.id)}>Reject</DangerousIcon></TableCell>
+                 <TableCell><CheckIcon className='icon-hover' style={{ color: 'green' }} onClick={() => approve(item.id)}></CheckIcon></TableCell>
+                 <TableCell><DeleteIcon className='icon-hover' style={{ color: 'grey' }} onClick={() => remove(item.id)}></DeleteIcon></TableCell>
               </TableRow>
              ))}
              </TableBody>
@@ -117,6 +164,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
           <div>{"No reimbursements"}</div>
         :
         <>
+        <div className='header'>Reimbursements</div>
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -124,6 +172,8 @@ export default function Reimbursements(props: IReimbursementsProps) {
         <TableCell>Description</TableCell>
         <TableCell>Amount</TableCell>
         <TableCell>Status</TableCell>
+        <TableCell>Edit</TableCell>
+        <TableCell>Delete</TableCell>
         </TableHead>
         <TableBody>
           {props.reimbursements?.reimbursements.filter((id) => (
@@ -135,6 +185,8 @@ export default function Reimbursements(props: IReimbursementsProps) {
              <TableCell>{item.description}</TableCell>
              <TableCell>{toMoney(item.amount)}</TableCell>
              <TableCell>{item.status}</TableCell>
+             <TableCell><EditIcon className='icon-hover' style={{ color: 'gold'}} onClick={() => edit(item.id)}></EditIcon></TableCell>
+             <TableCell><DeleteIcon className='icon-hover' style={{ color: 'grey' }} onClick={() => remove(item.id)}></DeleteIcon></TableCell>
           </TableRow>
          ))}
          </TableBody>

@@ -1,0 +1,16 @@
+.icon-hover:hover {
+    cursor: pointer;
+    transform: scale(1.2)
+}
+
+.approved-green {
+    color: green;
+}
+
+.denied-red {
+    color:red;
+}
+
+.received-blue {
+  color: blue;
+}

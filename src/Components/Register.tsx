@@ -1,6 +1,7 @@
-import {useState } from 'react'
+import {useEffect, useState } from 'react'
 import { User } from './models/user';
 import { Checkbox } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 interface IRegisterProps {
   currentUser: User | undefined
@@ -15,6 +16,7 @@ export default function Register(props: IRegisterProps) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('false')
+  const navigate = useNavigate()
 
 function changeValue() {
   if (role === 'false')
@@ -41,11 +43,15 @@ function changeValue() {
             last_name: `${lastName}`,
             role: `${role}`
         })
-      })
+      }).then(resp => {navigate('/users')})
     } catch (err) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+      setRole('false')
+  },[])
     
   return (
     <div>

@@ -11,6 +11,7 @@ import Reimbursements from './Components/Reimbursements';
 import { Reimbursement } from './Components/models/reimbursements';
 import Users from './Components/Users';
 import Submit from './Components/Submit';
+import EditReimbursements from './Components/EditReimbursements';
 
 function App() {
   const [principal, setPrincipal] = useState<User>();
@@ -26,6 +27,7 @@ function App() {
         <Route path='register' element={<Register currentUser={principal}/>}/>
         <Route path='submit' element={<Submit currentUser={principal}/>}/>
         <Route path="users" element={<Users currentUser={principal}/>}/>
+        <Route path='reimbursement/:id/edit' element={<EditReimbursements currentUser={principal} reimbursements={reimbursements} setReimbursements={setReimbursements}/>}/>
         <Route path='reimbursements' element={<Reimbursements currentUser={principal} reimbursements={reimbursements} setReimbursements={setReimbursements}/>}/>
         </Routes>
       </BrowserRouter>
