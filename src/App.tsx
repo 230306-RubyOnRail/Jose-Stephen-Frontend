@@ -1,7 +1,5 @@
 import {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import TestComponent from "./Components/TestComponent";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NavbarComponent from "./Components/Navbar";
 import {User} from "./Components/models/user"

@@ -50,7 +50,7 @@ export default function Users(props:IPropsUsers) {
 
       useEffect(() => {
         fetchUsers()
-        })
+        }, [])
       
       
         
@@ -80,8 +80,6 @@ export default function Users(props:IPropsUsers) {
                  <TableCell>{user.user_name}</TableCell>
                  <TableCell>{user.role? <CheckIcon style={{ color: 'green' }}/>:<div></div>}</TableCell>
                  <TableCell><DangerousIcon className='icon-hover' style={{ color: 'red' }} onClick={() => remove(user.id)}>Reject</DangerousIcon></TableCell>
-                 {/* <TableCell><CheckIcon className='icon-hover' style={{ color: 'green' }} onClick={() => approve(item.id)}></CheckIcon></TableCell>
-                 <TableCell><DeleteIcon className='icon-hover' style={{ color: 'grey' }} onClick={() => remove(item.id)}></DeleteIcon></TableCell> */}
               </TableRow>
              ))}
              </TableBody>
