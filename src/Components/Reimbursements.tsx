@@ -21,6 +21,7 @@ interface IReimbursementsProps {
   currentUser: User | undefined,
   reimbursements: Reimbursement | undefined,
   setReimbursements: (nextReimbursements: Reimbursement) => void
+  count: number
 }
 
 export default function Reimbursements(props: IReimbursementsProps) {
@@ -121,7 +122,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
   useEffect(() => {
     fetchReimbursements()
     console.log(props)
-  }, [])
+  }, [props.count])
 
 
   return (

@@ -12,6 +12,7 @@ interface IEditReimbursementsProps {
     currentUser: User | undefined,
     reimbursements: Reimbursement | undefined,
     setReimbursements: (nextReimbursements: Reimbursement) => void
+    count:number
   }
   
 
@@ -81,7 +82,7 @@ export default function EditReimbursements(props: IEditReimbursementsProps) {
 
     useEffect(() => {
         fetchThisReimbursements()
-    },[])
+    },[props.count])
   
     return (
       props.currentUser?.user_id

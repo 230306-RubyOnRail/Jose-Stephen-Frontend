@@ -9,6 +9,7 @@ import CheckIcon from '@mui/icons-material/Check';
 
 interface IPropsUsers {
     currentUser: User | undefined
+    count:number
 }
 
 
@@ -50,7 +51,7 @@ export default function Users(props:IPropsUsers) {
 
       useEffect(() => {
         fetchUsers()
-        }, [])
+        }, [props.count])
       
       
         

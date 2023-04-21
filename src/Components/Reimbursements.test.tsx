@@ -8,7 +8,7 @@ jest.mock('axios')
 
 describe("View reimbursements", () => {
     test("Renders view reimbursements page",() => {
-        render(<Reimbursements currentUser={undefined} reimbursements={undefined} setReimbursements={function (nextReimbursements: Reimbursement): void {
+        render(<Reimbursements count={0} currentUser={undefined} reimbursements={undefined} setReimbursements={function (nextReimbursements: Reimbursement): void {
             throw new Error('Function not implemented.');
         } }/>)
     })

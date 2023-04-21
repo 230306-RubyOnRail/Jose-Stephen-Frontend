@@ -5,5 +5,6 @@ export interface Reimbursement {
         status: string;
         amount: number;
         user_id: number;
+        count: number;
     }>
 }
