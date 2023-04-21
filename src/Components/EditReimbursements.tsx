@@ -81,8 +81,24 @@ export default function EditReimbursements(props: IEditReimbursementsProps) {
     }
 
     useEffect(() => {
+      let fetchThisReimbursements = async () => {
+        try {
+            let resp = await axios.get(`${API_URL}/reimbursements/${id}`, {
+              headers: {
+                Authorization: `Bearer ${props.currentUser?.token}`
+              }
+            })
+            if(resp.status === 200) {
+                setThisReimbursement(resp.data)
+                }
+            
+      } catch (err) {
+        console.log(err)
+      }
+            }
+
         fetchThisReimbursements()
-    },[props.count, fetchThisReimbursements])
+    },[props.count])
   
     return (
       props.currentUser?.user_id

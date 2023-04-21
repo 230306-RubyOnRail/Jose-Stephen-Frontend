@@ -120,9 +120,22 @@ export default function Reimbursements(props: IReimbursementsProps) {
 
   //Use Effect for getting reimbursements
   useEffect(() => {
+    const fetchReimbursements = async () => {
+      try {
+        let response = await axios.get(`${API_URL}/reimbursements`, {
+          headers: {
+            Authorization: `Bearer ${props.currentUser?.token}`
+          }
+        })
+        props.setReimbursements(response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
     fetchReimbursements()
     console.log(props)
-  }, [props.count, fetchReimbursements])
+  }, [props.count])
 
 
   return (

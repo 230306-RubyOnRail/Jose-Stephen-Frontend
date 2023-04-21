@@ -50,8 +50,17 @@ export default function Users(props:IPropsUsers) {
   }
 
       useEffect(() => {
+        function fetchUsers() {
+          axios.get(`${API_URL}/users`, {
+            headers: headers
+          })
+          .then((response) => {
+            setUsers(response.data)
+      })
+        }
+
         fetchUsers()
-        }, [props.count, fetchUsers])
+        }, [props.count])
       
       
         
