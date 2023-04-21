@@ -82,7 +82,7 @@ export default function EditReimbursements(props: IEditReimbursementsProps) {
 
     useEffect(() => {
         fetchThisReimbursements()
-    },[props.count])
+    },[props.count, fetchThisReimbursements])
   
     return (
       props.currentUser?.user_id

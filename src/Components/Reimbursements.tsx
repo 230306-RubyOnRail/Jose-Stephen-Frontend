@@ -122,7 +122,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
   useEffect(() => {
     fetchReimbursements()
     console.log(props)
-  }, [props.count])
+  }, [props.count, fetchReimbursements])
 
 
   return (

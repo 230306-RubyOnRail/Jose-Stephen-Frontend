@@ -51,7 +51,7 @@ export default function Users(props:IPropsUsers) {
 
       useEffect(() => {
         fetchUsers()
-        }, [props.count])
+        }, [props.count, fetchUsers])
       
       
         
