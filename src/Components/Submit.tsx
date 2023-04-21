@@ -64,6 +64,6 @@ export default function Submit(props: ISubmitProps) {
       :
       <Navigate to='/reimbursements'/>
       :
-      <Navigate to='/login'/>
+      <Navigate to='/'/>
   )
 }

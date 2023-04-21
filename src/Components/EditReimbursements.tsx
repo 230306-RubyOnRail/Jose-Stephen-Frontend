@@ -112,6 +112,6 @@ export default function EditReimbursements(props: IEditReimbursementsProps) {
         <Button onClick={() => edit()}>Submit</Button>
         </div>
         :
-        <Navigate to='/login'/>
+        <Navigate to='/'/>
     )
 }

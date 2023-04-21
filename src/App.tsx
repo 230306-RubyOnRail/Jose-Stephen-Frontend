@@ -23,7 +23,7 @@ function App() {
       <NavbarComponent currentUser={principal} setCurrentUser={setPrincipal}/>
       <Routes>
         {/* <TestComponent/> */}
-        <Route path ="login" element={<Login currentUser={principal} setCurrentUser={setPrincipal}/>}/>
+        <Route path ="/" element={<Login currentUser={principal} setCurrentUser={setPrincipal}/>}/>
         <Route path='register' element={<Register currentUser={principal}/>}/>
         <Route path='submit' element={<Submit currentUser={principal}/>}/>
         <Route path="users" element={<Users count={count} currentUser={principal}/>}/>

@@ -208,7 +208,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
         </>
       :
       <>
-        <Navigate to='/login'/>
+        <Navigate to='/'/>
       </>
 
   )
