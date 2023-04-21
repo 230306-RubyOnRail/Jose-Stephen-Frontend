@@ -11,6 +11,8 @@ import Users from './Components/Users';
 import Submit from './Components/Submit';
 import EditReimbursements from './Components/EditReimbursements';
 
+require('dotenv').config()
+
 function App() {
   const [principal, setPrincipal] = useState<User>();
   const [reimbursements, setReimbursements] = useState<Reimbursement>();
