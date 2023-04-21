@@ -19,7 +19,7 @@ export default function Users(props:IPropsUsers) {
         'Authorization': `Bearer ${props.currentUser?.token}`
       }
 
-      const API_URL = 'ec2-3-21-55-187.us-east-2.compute.amazonaws.com/3000'
+      const API_URL = '172.31.44.96/8000'
       const [users, setUsers] = useState<users>()
 
         //Changes the status of the Reimbursement to denied

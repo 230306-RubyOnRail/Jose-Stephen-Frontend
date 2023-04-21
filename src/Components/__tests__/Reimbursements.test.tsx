@@ -1,16 +1,10 @@
-import Reimbursements from "../Reimbursements";
-import axios from "axios";
-import { render } from "@testing-library/react";
 
-jest.mock('axios')
+import { render, screen } from "@testing-library/react";
+import TestComponent from "../TestComponent";
 
 
-describe("View reimbursements", () => {
-    test("renders reimbursements as employee", () => {
-
+    test("renders test component", () => {
+        render(<TestComponent />);
+        const element = screen.getByText(/Hello world!/i)
+        expect(element).toBeInTheDocument()
     })
-
-    test("renders reimbursements as manager", () => {
-
-    })
-})
