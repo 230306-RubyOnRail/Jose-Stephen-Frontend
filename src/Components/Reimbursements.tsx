@@ -9,7 +9,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -101,7 +100,7 @@ export default function Reimbursements(props: IReimbursementsProps) {
   //deletes reimbursement
   const remove = async (id:number) => {
     try {
-      const resp = await fetch(`${API_URL}/reimbursements/${id}`, {
+       await fetch(`${API_URL}/reimbursements/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
