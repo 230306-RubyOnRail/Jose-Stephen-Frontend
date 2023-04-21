@@ -26,7 +26,7 @@ interface IReimbursementsProps {
 
 export default function Reimbursements(props: IReimbursementsProps) {
 
-  const API_URL = 'http://localhost:3000'
+  const API_URL = 'ec2-3-21-55-187.us-east-2.compute.amazonaws.com/3000'
   const navigate = useNavigate()
 
   // Gets reimbursements from the database

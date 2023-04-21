@@ -38,6 +38,7 @@ export default function NavbarComponent(props:INavbarComponent) {
           {!props.currentUser ?
             <div>
                <Button><Link className='nav-title hover-large' to="/login">Login</Link></Button>
+               <div>hello</div>
             </div>
             :
             props.currentUser.user_role ? 

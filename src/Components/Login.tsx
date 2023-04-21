@@ -23,7 +23,7 @@ export default function Login(props: ILoginProps) {
             setErrorMessage('');
 
             try{
-                let response = await fetch('http://localhost:3000/auth/login', {
+                let response = await fetch('172.31.44.96/3000/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json'

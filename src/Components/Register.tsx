@@ -9,7 +9,7 @@ interface IRegisterProps {
 
 export default function Register(props: IRegisterProps) {
 
-  const API_URL = 'http://localhost:3000'
+  const API_URL = 'ec2-3-21-55-187.us-east-2.compute.amazonaws.com/3000'
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
